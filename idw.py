@@ -113,7 +113,7 @@ def run_regression(tracts_with_nitrate):
 
 def raster_to_png_overlay(raster, bounds_3070, cmap_name="YlOrRd"):
     norm = mcolors.Normalize(vmin=np.nanmin(raster), vmax=np.nanmax(raster))
-    cmap = cm.get_cmap(cmap_name)
+    cmap = plt.get_cmap(cmap_name)
     rgba = cmap(norm(raster))
     rgba[np.isnan(raster)] = (0, 0, 0, 0)  # transparent where no data
     rgba_flipped = np.flipud(rgba)
@@ -134,7 +134,7 @@ def raster_to_png_overlay(raster, bounds_3070, cmap_name="YlOrRd"):
 def make_nitrate_colorbar_html(vmin, vmax, cmap_name="YlOrRd", label="Nitrate (mg/L)"):
     fig, ax = plt.subplots(figsize=(4, 0.4))
     norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
-    cb = mcolorbar.ColorbarBase(ax, cmap=cm.get_cmap(cmap_name), norm=norm, orientation="horizontal")
+    cb = fig.colorbar(cm.ScalarMappable(norm=norm, cmap=plt.get_cmap(cmap_name)), cax=ax, orientation="horizontal")
     cb.set_label(label)
     buf = io.BytesIO()
     plt.savefig(buf, format="png", bbox_inches="tight", dpi=100)

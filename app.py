@@ -1,6 +1,8 @@
 import os
-os.environ["PROJ_LIB"] = r"C:\venv\Lib\site-packages\rasterio\proj_data"
-os.environ["PROJ_DATA"] = r"C:\venv\Lib\site-packages\rasterio\proj_data"
+_proj = r"C:\venv\Lib\site-packages\rasterio\proj_data"
+if os.path.isdir(_proj):   # only applies on your Windows machine
+    os.environ["PROJ_LIB"] = _proj
+    os.environ["PROJ_DATA"] = _proj
 
 import streamlit as st    
 import matplotlib.pyplot as plt    
